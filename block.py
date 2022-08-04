@@ -1,5 +1,6 @@
 import pygame as pg
 from settings import colors
+from random import randint
 """
     4x4 matrix of block
     *---*---*---*---*
@@ -27,9 +28,10 @@ class Block():
         #starting position
         self.x = 3
         self.y = 0
-        self.type = random.randint(0, len(self.blocks) - 1)
-        self.color = random.randint(1, len(colors) - 1)
+        self.type = randint(0, len(self.blocks) - 1)
+        self.color = randint(1, len(colors) - 1)
         self.rotation = 0
+
 
     def image(self):
         return self.blocks[self.type][self.rotation]
