@@ -54,20 +54,20 @@ class Tetris():
         collided = False
         for i in range(4):
             for j in range(4):
-                if i * 4 + j in self.current_block.image():
-                    if i + self.current_block.y > self.grid_length_height - 1 or \
-                            j + self.current_block.x > self.grid_length_width - 1 or \
-                            j + self.current_block.x < 0 or \
-                            self.field[j + self.current_block.x][i + self.current_block.y]["color"] is not None: #might have logic error here, attention
+                if i + j*4 in self.current_block.image():
+                    if j + self.current_block.y > self.grid_length_height - 1 or \
+                            i + self.current_block.x > self.grid_length_width - 1 or \
+                            i + self.current_block.x < 0 or \
+                            self.field[i + self.current_block.x][j + self.current_block.y]["color"] is not None: #might have logic error here, attention
                         collided = True
                     return collided
 
     def anchor(self):
         ''' Fix the position of the current block'''
 
-        for i in range(3,0,-1):
-            for j in range(3,0,-1):
-                if i*4 + j in self.current_block.image():
+        for i in range(4):
+            for j in range(4):
+                if i + j*4 in self.current_block.image():
                     self.field[i + self.current_block.x][j + self.current_block.y]["color"] = self.current_block.color
         self.break_line()
         self.add_block()
@@ -90,7 +90,7 @@ class Tetris():
             if valid:
                 lines_count += 1
                 for i in range(y, 1, -1):
-                    for j in range(self.width):
+                    for j in range(self.grid_length_width):
                         self.field[j][i]["color"] = self.field[j][i-1]["color"]
         self.score += lines_count
 
@@ -104,7 +104,7 @@ class Tetris():
         print("going down")
         self.current_block.y += 1
         if self.collide():
-            self.current_block.y -= 20
+            self.current_block.y -= 1
             self.anchor()
 
     def rush(self):

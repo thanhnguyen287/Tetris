@@ -35,7 +35,8 @@ class Game:
                 if event.key == pg.K_RIGHT:
                     self.Tetris.side_step(1)
                 if event.key == pg.K_DOWN:
-                    self.Tetris.rush()
+                    self.Tetris.field[0][5]["color"] = 1
+
 
 
     def update(self):

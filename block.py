@@ -28,9 +28,11 @@ class Block():
         #starting position
         self.x = 3
         self.y = 0
-        self.type = randint(0, len(self.blocks) - 1)
+        # self.type = randint(0, len(self.blocks) - 1)
+        self.type = 0
         self.color = randint(1, len(colors) - 1)
-        self.rotation = 0
+        # self.rotation = 0
+        self.rotation = 1
 
 
     def image(self):
