@@ -14,7 +14,7 @@ def main():
 
     #Title and Icon
     pg.display.set_caption("Tetris: Homemade Edition")
-    # icon = pygame.image.load(os.path.join(common_path,'icon.png'))
+    # icon = pygame.image.load(os.path.join(path,'icon.png'))
     # pygame.display.set_icon(icon)
 
     #Implement game

@@ -2,17 +2,20 @@ import pygame as pg
 import random
 from settings import sq_size as size,colors
 from block import Block
+from collections import deque
 from queue import Queue
+
 
 class Tetris():
     def __init__(self, grid_leghth_width, grid_length_height):
         self.score = 0
         self.grid_length_width = grid_leghth_width
         self.grid_length_height = grid_length_height
-        self.block_queue = Queue(maxsize=2) #blockqueue.get
+        self.block_queue = deque(maxlen=2) #blockqueue.pop
         self.current_block = None   #Remember to add the initial block
         self.field = self.create()
         self.game_state = "playing"
+        # self.next_field = self.create_next()
 
     def create(self):
         field = []
@@ -25,10 +28,29 @@ class Tetris():
                 tile = self.grid_to_field(x,y)
                 field[x].append(tile)
 
-        self.block_queue.put(block1)
-        self.block_queue.put(block2)
+        self.block_queue.append(block1)
+        self.block_queue.append(block2)
 
         return field
+    # def create_next(self):
+    #     field = []
+    #     # block = self.get_next()
+    #     next_block = self.block_queue[1]
+    #     for x in range(4):
+    #         field.append([])
+    #         for y in range(4):
+    #             tile = self.grid_to_field(x, y)
+    #             field[x].append(tile)
+    #     for i1 in range(4):
+    #         for j1 in range(4):
+    #             if i1+j1*4 in next_block.image():
+    #                 field[i1][j1]['color'] = 7 #GRAY
+    #     out = {
+    #         "field": field,
+    #         "type": next_block.type,
+    #         "block": next_block
+    #     }
+    #     return out
 
     def grid_to_field(self, x, y):
         rect = [
@@ -46,9 +68,9 @@ class Tetris():
         return out
 
     def add_block(self):
-        self.current_block = self.block_queue.get()
+        self.current_block = self.block_queue.pop()
         new_block = Block()
-        self.block_queue.put(new_block)
+        self.block_queue.append(new_block)
 
     def collide(self):
         collided = False
@@ -60,11 +82,10 @@ class Tetris():
                             i + self.current_block.x < 0 or \
                             self.field[i + self.current_block.x][j + self.current_block.y]["color"] is not None: #might have logic error here, attention
                         collided = True
-                    return collided
+        return collided
 
     def anchor(self):
         ''' Fix the position of the current block'''
-
         for i in range(4):
             for j in range(4):
                 if i + j*4 in self.current_block.image():
@@ -101,7 +122,6 @@ class Tetris():
             self.current_block.rotation = old
 
     def go_down(self):
-        print("going down")
         self.current_block.y += 1
         if self.collide():
             self.current_block.y -= 1
@@ -113,7 +133,9 @@ class Tetris():
         self.current_block.y -= 1
         self.anchor()
 
-
+    # def get_next(self):
+    #     next_block = self.block_queue[1]
+    #     return next_block
 
 
 

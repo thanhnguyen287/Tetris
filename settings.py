@@ -8,8 +8,8 @@ colors = [
     (80, 134, 22),
     (180, 34, 22),
     (180, 34, 122),
+    (128,128,128)
 ]
-
 
 def draw_text(screen, text, size, color, pos):
     # create a Font object from the system fonts
