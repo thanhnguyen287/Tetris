@@ -68,6 +68,7 @@ class Tetris():
         return out
 
     def add_block(self):
+        print("adding")
         self.current_block = self.block_queue.pop()
         new_block = Block()
         self.block_queue.append(new_block)

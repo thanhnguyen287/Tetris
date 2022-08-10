@@ -48,8 +48,13 @@ class Game:
 
 
     def gameover(self):
-        self.clock.tick(0)
-        draw_text(self.screen, "Game over", 20, (255, 0, 0), (20, 200))
+        print("gameoverrrrr")
+        while 1:
+            self.clock.tick(0)
+            self.events()
+            draw_text(self.screen, "Game over", 20, (255, 0, 0), (20, 200))
+            draw_text(self.screen, "Press ESC to exit", 20, (255, 0, 0), (20, 250))
+            pg.display.flip()
 
     def draw(self):
         self.screen.fill((255,255,255))
